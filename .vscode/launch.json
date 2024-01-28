@@ -1,0 +1,53 @@
+{
+    // 使用 IntelliSense 了解相关属性。 
+    // 悬停以查看现有属性的描述。
+    // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "train final answer",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "args": [
+                "--model=pretrained_models/roberta-base-squad2",
+                "--bs=8",
+                "--eval_bs=4",
+                "--eval_acc=10",
+                "--small_dataset",
+                "--prompt_format=QPBC-A",
+                "--epoch=1",
+                "--eval_generated_bridge_le=bridge_generation_result/box0.4_text0.5_short/dev_prediction.json",
+                "--test_generated_bridge_le=bridge_generation_result/box0.4_text0.5_short/test_prediction.json",
+                "--eval_q_bridge_le=bridge_generation_result/box0.4_text0.5_short/dev_q_bridges.json",
+                "--test_q_bridge_le=bridge_generation_result/box0.4_text0.5_short/test_q_bridges.json",
+                "--img_type=detr"
+            ],
+            "env": {
+                "CUDA_VISIBLE_DEVICES": "0"
+            },
+        },
+        {
+            "name": "train bridge generation",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "args": [
+                "--model=pretrained_models/roberta-base-squad2",
+                "--img_type=detr",
+                "--bs=8",
+                "--eval_bs=4",
+                "--eval_acc=10",
+                "--prompt_format=QESCAP-B",
+                "--epoch=1",
+            ],
+            "env": {
+                "CUDA_VISIBLE_DEVICES": "0"
+            },
+        }
+    ]
+}
